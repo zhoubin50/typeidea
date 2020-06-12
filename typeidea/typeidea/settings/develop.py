@@ -13,7 +13,7 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'student',
+        'NAME': 'typeidea',
         'HOST': '192.168.13.1',
         'USER': 'root',
         'PASSWORD': 'zhoubin123',
