@@ -1,0 +1,9 @@
+<table class="layui-table" lay-skin="nob">
+    <tbody>
+    {% for comment in comments %}
+        <tr>
+            <td><a href="{% url 'post-detail' comment.target_id %}">{{ comment.content }}</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

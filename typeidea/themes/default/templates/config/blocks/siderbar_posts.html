@@ -1,0 +1,9 @@
+<table class="layui-table" lay-skin="nob">
+    <tbody>
+    {% for post in posts %}
+            <tr>
+        <td><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>

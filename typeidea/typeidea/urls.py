@@ -16,6 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from typeidea.custom_site import custom_site
+from blog.views import post_list, post_detail,PostDetailView,IndexView,CategoryView,TagView
+from config.views import links
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('', post_list, name='index'),
+    path('', IndexView.as_view(), name='index'),
+    # path('category/<int:category_id>.html', post_list, name='category-list'),
+    path('category/<int:category_id>.html', CategoryView.as_view(), name='category-list'),
+    # path('tag/<int:tag_id>.html', post_list, name='tag-list'),
+    path('tag/<int:tag_id>.html', TagView.as_view(), name='tag-list'),
+    # path('post/<int:post_id>.html', post_detail, name='post-detail'),
+    path('post/<int:pk>.html', PostDetailView.as_view(), name='post-detail'),
+    path('links/', links, name='links'),
+    path('super_admin/', admin.site.urls, name='super-admin'),
+    path('admin/', custom_site.urls, name='admin')
 ]

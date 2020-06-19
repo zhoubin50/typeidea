@@ -1,0 +1,104 @@
+{% extends 'blog/base.html' %}
+{% block title %}
+    {% if tag %}
+        <title>标签{{ tag.name }} - 博客系统</title>
+    {% elif category %}
+        <title>分类{{ category.name }} - 博客系统</title>
+    {% else %}
+        <title>首页 - 博客系统</title>
+    {% endif %}
+{% endblock %}
+
+
+{% block main %}
+    <div class="layui-col-md8">
+        <div class="layui-row">
+            {#            <div class="layui-col-md12">#}
+            {#                <div class="layui-carousel" id="carousel">#}
+            {#                    <div carousel-item>#}
+            {#                        <div><img src="https://img.zcool.cn/community/0132815c2581eba80121df90120d8c.jpg@1380w"#}
+            {#                                  alt=""></div>#}
+            {#                        <div><img src="https://img.zcool.cn/community/01cdfb5c244470a8012029ac59da4c.png@1380w"#}
+            {#                                  alt=""></div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+            {#            <div class="layui-col-md12 margin20"></div>#}
+            <div class="layui-col-md12">
+                <div class="main zdbox">
+                    <div class="subject"><b>[置顶]</b><a href="javascript:;" title="用DTcms做一个独立博客网站（响应式模板）">用layui做一个独立博客网站（响应式模板）</a><em>2018-12-28
+                        11:53:24 发布</em></div>
+                    <div class="content">我是熊五，风格迥异的四个我，有着不同的个性，不同的人格，甚至不同的职业。
+                        行险解秘专注探险的我，朝阳蓬勃酷爱嘻哈的我，精工巧匠专注纹身的我，文墨生花文艺气息满满的我。
+                        亦是我，亦非我，我是不一样的烟火。
+                    </div>
+                </div>
+            </div>
+            {#                文章列表#}
+            {% for post in post_list %}
+                <div class="layui-col-md12 margin20"></div>
+                <div class="layui-col-md12">
+                    <div class="main list">
+                        <div class="subject"><a href="{% url 'category-list' post.category_id %}"
+                                                class="caty">{{ post.category }}</a><a
+                                href="{% url 'post-detail' post.id %}"
+                                title="{{ post.title }}">{{ post.title }}</a><em>{{ post.created_time }} 发布</em>
+                        </div>
+                        <div class="content layui-row">
+                            <div class="layui-col-md4 list-img">
+                                <a href="javascript:;"><img
+                                        src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg"></a>
+                            </div>
+                            <div class="layui-col-md8">
+                                <div class="list-text">{{ post.desc }}</div>
+                                <div class="list-stat layui-row">
+
+                                    <div class="layui-col-xs3 layui-col-md3 Label">
+                                        <i class="layui-icon layui-icon-note"></i>
+                                        {% for tag in post.tag.all %}
+                                            <a href="{% url 'tag-list' tag.id %}">{{ tag.name }}</a>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="layui-col-xs3 layui-col-md3">
+                                        <i class="layui-icon layui-icon-reply-fill"></i>
+                                        <em>{{ post.comment_set.count }}条评论</em>
+                                    </div>
+
+                                    <div class="layui-col-xs3 layui-col-md3">
+                                        <i class="layui-icon layui-icon-read"></i>
+                                        <em>{{ post.pv }}次阅读</em>
+                                    </div>
+
+                                    <div class="layui-col-xs3 layui-col-md3 alink">
+                                        <a href="{% url 'post-detail' post.id %}"
+                                           class="layui-btn layui-btn-xs">阅读原文</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="layui-col-md12 margin20"></div>
+            {% if page_obj %}
+                <div id="pages" class="layui-col-md12">
+                <div class="layui-box layui-laypage layui-laypage-default">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="layui-laypage-prev">上一页</a>
+                    {% else %}
+                        <a href="javascript:;" class="layui-laypage-prev layui-disabled">上一页</a>
+                    {% endif %}
+                    <span class="layui-laypage-spr">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="layui-laypage-next">下一页</a>
+                    {% else %}
+                        <a href="javascript:;" class="layui-laypage-next layui-disabled">下一页</a>
+                    {% endif %}
+                </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
